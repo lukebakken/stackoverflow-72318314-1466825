@@ -1,14 +1,13 @@
 FROM rabbitmq:3.9.13-management
 
-# Define environment variables.
 ENV RABBITMQ_USER user
 ENV RABBITMQ_PASSWORD password
 ENV RABBITMQ_PID_FILE /var/lib/rabbitmq/mnesia/rabbitmq
 
-COPY ./myrabbit.conf /etc/rabbitmq/rabbitmq.conf
+COPY ./custom-rabbitmq.conf /etc/rabbitmq/rabbitmq.conf
 
-ADD init.sh /init.sh
-RUN chmod +x /init.sh
+ADD custom-docker-entrypoint.sh /usr/local/bin
+RUN chmod 0755 /usr/local/bin/*.sh
 
-# Define default command
-CMD ["/init.sh"]
+ENTRYPOINT ["custom-docker-entrypoint.sh"]
+CMD ["rabbitmq-server"]
