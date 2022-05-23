@@ -4,6 +4,7 @@ ENV RABBITMQ_USER user
 ENV RABBITMQ_PASSWORD password
 ENV RABBITMQ_PID_FILE /var/lib/rabbitmq/mnesia/rabbitmq
 
+COPY ./advanced.config /etc/rabbitmq/advanced.config
 COPY ./custom-rabbitmq.conf /etc/rabbitmq/rabbitmq.conf
 
 ADD custom-docker-entrypoint.sh /usr/local/bin
